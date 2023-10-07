@@ -29,35 +29,44 @@ const firebaseConfig = {
             typeWriter();
           }, 1000);
         }
+        function command_noT(message) {
+          document.querySelector(".log").innerHTML = "> "+ message;
+        }
         if(sessionStorage.getItem("rel") == "" || sessionStorage.getItem("rel") == null){
             sessionStorage.setItem("rel", "1")
-            document.querySelector("")
+            command_noT("Loading")
             setTimeout(() => {
             window.location.reload();
             }, 1000);
         }
         else if(sessionStorage.getItem("rel") == "1"){
             sessionStorage.setItem("rel", "2")
+            command_noT("Loading")
             setTimeout(() => {
             window.location.reload();
             }, 1500);
         }
         else if(sessionStorage.getItem("rel") == "2"){
             sessionStorage.setItem("rel", "3")
+            command_noT("Loading")
             setTimeout(() => {
             window.location.reload();
             }, 2000);
         }else if(sessionStorage.getItem("rel") == "3"){
           sessionStorage.setItem("rel", "4")
+          command_noT("Loading")
           setTimeout(() => {
           window.location.reload();
           }, 2000);
         }else if(sessionStorage.getItem("rel") == "4"){
           sessionStorage.setItem("rel", "5")
+          command_noT("Loading")
           setTimeout(() => {
           window.location.reload();
           }, 2000);
-        }else{}
+        }else{
+          command_noT("Done")
+        }
 
 
         function getRequest(url, callback) {
@@ -89,7 +98,15 @@ const host = {hostnames: sessionStorage.getItem("host")};
 if (sessionStorage.getItem("host") != "" || sessionStorage.getItem("host") != null){
     if (host.hostnames.includes(window.location.hostname)) {
         console.log("host allowed");
-        command("host allowed")
+        if (sessionStorage.getItem("rel") == "" || sessionStorage.getItem("rel") == null) {
+          setTimeout(() => {
+            command("host allowed")
+          }, 2000);
+        }else{
+          setTimeout(() => {
+            command("host allowed")
+          }, 100);
+        }
         function delete_data(id) {
             const formData = new FormData();
             formData.append('delete', id);
@@ -131,6 +148,14 @@ if (sessionStorage.getItem("host") != "" || sessionStorage.getItem("host") != nu
             xhr.setRequestHeader('ngrok-skip-browser-warning', 'true'); xhr.send();}
     }
     else{console.log("host blocked")
-    command("host blocked")
+    if (sessionStorage.getItem("rel") == "" || sessionStorage.getItem("rel") == null) {
+      setTimeout(() => {
+        command("host blocked")
+      }, 2000);
+    }else{
+      setTimeout(() => {
+        command("host blocked")
+      }, 100);
+    }
   }
 }
