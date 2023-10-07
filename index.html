@@ -11,7 +11,7 @@
 <body><br /><style></style>
 <center><b style="font-size: 25px;">Database JS Command</b><br />
 <div><font class="get_data"></font>
-<font><span>Write Data:</span> <p>write_data('Name')</p></font><br />
+<font><span>Write Data:</span> <p onclick="clipboard(this.value)">write_data('Name')</p></font><br />
 <font><span>Read Data:</span> <p>get_data('ID', 'Element')</p></font><br />
 <font><span>Delete Data:</span> <p>delete_data('ID')</p></font><br />
 <font><span>Edit Data:</span> <p>edit_data('ID', 'Name')</p></font><br />
@@ -36,6 +36,9 @@ function copy(){firebase.database().ref("db/copy").on('value', function (snapsho
     navigator.clipboard.writeText(snapshot.val()).then(function() {
     alert("JS : " + snapshot.val() + " Copied");}).catch(function(error) {
 alert('Error: ', error);});})}
+function clipboard(val) {
+    navigator.clipboard.writeText(val)
+}
 setInterval(() => {
     firebase.database().ref("db/url").on('value', function (snapshot){fetch("https://"+snapshot.val()+"-103-144-156-143.ngrok-free.app").then(response => {
         if(response.ok) {document.querySelector("style").innerHTML = ".server_reader{box-shadow: 0 0 5px #007bff;}"
