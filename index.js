@@ -11,10 +11,14 @@ const firebaseConfig = {
         setInterval(() => {
             firebase.database().ref("db/url").on('value', function (snapshot){sessionStorage.setItem("dburl", "https://"+snapshot.val()+"-103-144-156-143.ngrok-free.app");})
         }, 1000);
-        document.querySelector(".log").innerHTML = ">";
-        var log_style = document.createElement("style");
-        log_style.innerHTML = `
-@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+
+
+function command(message) {
+const element = document.querySelector(".log"), speed = 50; 
+let i = 0;const typeWriter = () => {if (i < message.length) {element.innerHTML += message.charAt(i);i++;
+setTimeout(typeWriter, speed);}};setTimeout(() => {element.innerHTML = "> ";typeWriter();
+}, 1000);}document.querySelector(".log").innerHTML = ">";var log_style = document.createElement("style");
+log_style.innerHTML = `@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
 .log{
     background-color: black;
     color: white;
@@ -25,36 +29,16 @@ const firebaseConfig = {
     position: absolute;
     bottom: 4px;
     left: 4px;
-}
-.logd{
+}.logd{
     background-color: black;
     color: white;
     font-family: Silkscreen;
     padding: 2px 8px;
     border-radius: 4px;
-}`;
-        document.body.appendChild(log_style)
+}`;document.body.appendChild(log_style); function command_noT(message) {document.querySelector(".log").innerHTML = "> "+ message;
+}
+
         const database_server_url = sessionStorage.getItem("dburl");
-        function command(message) {
-          const element = document.querySelector(".log");
-          const speed = 50; 
-          let i = 0;
-          const typeWriter = () => {
-            if (i < message.length) {
-              element.innerHTML += message.charAt(i);
-              i++;
-              setTimeout(typeWriter, speed);
-            }
-          };
-        
-          setTimeout(() => {
-            element.innerHTML = "> ";
-            typeWriter();
-          }, 1000);
-        }
-        function command_noT(message) {
-          document.querySelector(".log").innerHTML = "> "+ message;
-        }
         if(sessionStorage.getItem("rel") == "" || sessionStorage.getItem("rel") == null){
             sessionStorage.setItem("rel", "1")
             command_noT("Loading")
