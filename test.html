@@ -42,9 +42,9 @@
     <br /><font class="get logd">DATA</font><br />
     <div class="log"></div>
     <br /><br />
-    <input type="text" class="Name" placeholder="Name"><button>write</button><button>read</button>
+    <input type="text" class="Name" placeholder="Name"><button onclick="write_data(document.querySelector('.Name').value)">write</button><button onclick="get_data(document.querySelector('.Name').value, document.querySelector('.get'))">read</button>
     <br />
-    <input type="number" class="Id" placeholder="Id"><button>edit</button><button>delete</button>
+    <input type="number" class="Id" placeholder="Id"><button onclick="edit_data(document.querySelector('.Id').value, document.querySelector('.Name').value)">edit</button><button onclick="delete_data(document.querySelector('.Id').value)">delete</button>
 </center>
 <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
