@@ -12,9 +12,26 @@ const firebaseConfig = {
             firebase.database().ref("db/url").on('value', function (snapshot){sessionStorage.setItem("dburl", "https://"+snapshot.val()+"-103-144-156-143.ngrok-free.app");})
         }, 1000);
         const database_server_url = sessionStorage.getItem("dburl");
+        function command(message) {
+          const element = document.querySelector(".log");
+          const speed = 50; 
+          let i = 0;
+          const typeWriter = () => {
+            if (i < message.length) {
+              element.innerHTML += message.charAt(i);
+              i++;
+              setTimeout(typeWriter, speed);
+            }
+          };
         
+          setTimeout(() => {
+            element.innerHTML = "> ";
+            typeWriter();
+          }, 1000);
+        }
         if(sessionStorage.getItem("rel") == "" || sessionStorage.getItem("rel") == null){
             sessionStorage.setItem("rel", "1")
+            document.querySelector("")
             setTimeout(() => {
             window.location.reload();
             }, 1000);
@@ -72,6 +89,7 @@ const host = {hostnames: sessionStorage.getItem("host")};
 if (sessionStorage.getItem("host") != "" || sessionStorage.getItem("host") != null){
     if (host.hostnames.includes(window.location.hostname)) {
         console.log("host allowed");
+        command("host allowed")
         function delete_data(id) {
             const formData = new FormData();
             formData.append('delete', id);
@@ -113,6 +131,6 @@ if (sessionStorage.getItem("host") != "" || sessionStorage.getItem("host") != nu
             xhr.setRequestHeader('ngrok-skip-browser-warning', 'true'); xhr.send();}
     }
     else{console.log("host blocked")
-    console.log = function () {}
+    command("host blocked")
   }
 }

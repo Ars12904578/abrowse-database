@@ -10,6 +10,8 @@
 <body>
 <center>
     <style>
+  @import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+
         button{
             background-color: #007bff;
             color: white;
@@ -37,9 +39,29 @@
         font{
             font-size: 14px;
         }
+        .log{
+            background-color: black;
+            color: white;
+            font-family: Silkscreen;
+            font-size: 14px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            position: absolute;
+            bottom: 4px;
+            left: 4px;
+        }
+        .logd{
+            background-color: black;
+            color: white;
+            font-family: Silkscreen;
+            font-size: 14px;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
     </style>
-    <br /><font class="title">Read DB "id"</font>
-    <br /><font class="get">DATA</font>
+    <br /><font class="title">ABrowse DB Tester</font>
+    <br /><font class="get logd">DATA</font><br />
+    <div class="log">></div>
     <br /><br />
     <input type="text" class="Name" placeholder="Name"><button>write</button><button>read</button>
     <br />
