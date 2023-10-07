@@ -9,13 +9,41 @@
 </head>
 <body>
 <center>
+    <style>
+        button{
+            background-color: #007bff;
+            color: white;
+            padding: 4px 14px;
+            border-radius: 1000px;
+            margin: 4px;
+            font-size: 12px;
+        }
+        button:active{
+            background-color: #ffffff;
+            color: #007bff;
+            padding: 4px 14px;
+            box-shadow: 0 0 4px 1px #007bff;
+            border-radius: 1000px;
+            margin: 4px;
+        }
+        input{
+            border-radius: 1000px;
+            border: none;
+            padding: 4px 12px;
+            margin: 8px;
+            outline: none;
+            box-shadow: 0 0 4px 1px #afafaf;
+        }
+        font{
+            font-size: 14px;
+        }
+    </style>
     <br /><font class="title">Read DB "id"</font>
-    <br /><font class="getdb"></font>
+    <br /><font class="get">DATA</font>
+    <br /><br />
+    <input type="text" class="Name" placeholder="Name"><button>write</button><button>read</button>
     <br />
-    <input type="text"><input type="text">
-    <br /><button>write</button>
-    <br /><button>edit</button>
-    <br /><button>delete</button>
+    <input type="number" class="Id" placeholder="Id"><button>edit</button><button>delete</button>
 </center>
 <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
