@@ -112,5 +112,7 @@ if (sessionStorage.getItem("host") != "" || sessionStorage.getItem("host") != nu
             xhr.open("GET", `${database_server_url}/send/${id}`, true);
             xhr.setRequestHeader('ngrok-skip-browser-warning', 'true'); xhr.send();}
     }
-    else{console.log("host blocked")}
+    else{console.log("host blocked")
+    console.log = function () {}
+  }
 }
