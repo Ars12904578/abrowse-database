@@ -11,10 +11,10 @@
 <body><br /><style></style>
 <center><b style="font-size: 25px;">Database JS Command</b><br />
 <div><font class="get_data"></font>
-<font><span>Write Data:</span> <p onclick="clipboard(this.value)" value="write_data('Name')">write_data('Name')</p></font><br />
-<font><span>Read Data:</span> <p>get_data('ID', 'Element')</p></font><br />
-<font><span>Delete Data:</span> <p>delete_data('ID')</p></font><br />
-<font><span>Edit Data:</span> <p>edit_data('ID', 'Name')</p></font><br />
+<font><span>Write Data:</span> <p onclick="clipboard(`write_data('name')`)">write_data('name')</p></font><br />
+<font><span>Read Data:</span> <p onclick="clipboard(`get_data('id', 'element')`)">get_data('id', 'element')</p></font><br />
+<font><span>Delete Data:</span> <p onclick="clipboard(`delete_data('id')`)">delete_data('id')</p></font><br />
+<font><span>Edit Data:</span> <p onclick="clipboard(`edit_data('id', 'name')`)">edit_data('id', 'name')</p></font><br />
 </div>
 <font>Connect JS </font> <button onclick="copy()"><i class="fas fa-copy"></i></button> <br /> <div class="server_reader"></div>
 </center>
