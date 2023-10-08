@@ -22,10 +22,11 @@ const firebaseConfig = {
         }, 1000);
 
 
-function command(message) {
+function command(message) {setTimeout(() => {
 const element = document.querySelector(".log"), speed = 50; 
 let i = 0;const typeWriter = () => {if (i < message.length) {element.innerHTML += message.charAt(i);i++;
 setTimeout(typeWriter, speed);}};setTimeout(() => {element.innerHTML = "> ";typeWriter();
+}, 1000);
 }, 1000);}document.querySelector(".log").innerHTML = ">";var log_style = document.createElement("style");
 log_style.innerHTML = `@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
 .log{
