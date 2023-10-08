@@ -9,7 +9,16 @@ const firebaseConfig = {
         measurementId: "G-P6Q07MEQ3X"};
         firebase.initializeApp(firebaseConfig);
         setInterval(() => {
-            firebase.database().ref("db/url").on('value', function (snapshot){sessionStorage.setItem("dburl", "https://"+snapshot.val()+"-103-144-156-143.ngrok-free.app");})
+            firebase.database().ref("db/url").on('value', function (snapshot){
+              var currentHash = "https://"+snapshot.val()+"-103-144-156-143.ngrok-free.app";
+              var storedHash = sessionStorage.getItem('dburl');
+              if (currentHash !== storedHash) {
+              sessionStorage.removeItem("rel")
+              sessionStorage.removeItem("host")
+              sessionStorage.setItem('dburl', currentHash);
+              location.reload();
+            }
+            })
         }, 1000);
 
 

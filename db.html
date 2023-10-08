@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+*{
+  font-family: Poppins, sans-serif;
+  transition: 0.2s;
+}
+.container{
+  width: 100%;
+}
+input{
+  width: 50%;
+  float: left;
+  padding: 5px;
+  border: none;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+  border-radius: 8px;
+}
+.result{
+  font-size: 12px;
+  background-color: #f4f4f4;
+  color: rgb(0, 0, 0);
+  padding: 8px;
+  border-radius: 10px;
+  width: fit-content;
+  height: fit-content;
+}
+button{
+  border: none;
+  outline: none;
+  padding: 4px;
+  background-color: white;
+  color: black;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+  border-radius: 8px;
+}
+button:active{
+  border: none;
+  outline: none;
+  padding: 8px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+</style>
+</head>
+<body>
+<div>
+  <div class="container">
+
+  <center>
+  <button onclick="writeData()">Write</button>
+  <button onclick="deleteData()">Delete</button>
+  <button onclick="refresh()">Read</button>
+  <button onclick="refresh2()">Read 2</button>
+  </center>
+</div>
+
+<div>
+  <pre id="resultArea" class="result"></pre>
+</div>
+</div>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBGUrn_z-QDeuAT3LKD1rbtTB56p2Xyo-4",
+  authDomain: "abrowse-search-db.firebaseapp.com",
+  databaseURL: "https://abrowse-search-db-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "abrowse-search-db",
+  storageBucket: "abrowse-search-db.appspot.com",
+  messagingSenderId: "837506355640",
+  appId: "1:837506355640:web:32ac036a34e1acd1d47f4d",
+  measurementId: "G-P6Q07MEQ3X"
+};
+  firebase.initializeApp(firebaseConfig);
+  
+  function refresh() {firebase.database().ref("/db/url").on("value", function (snapshot2) {
+        var resultArea = document.getElementById("resultArea");
+        resultArea.innerText = snapshot2.val() ? JSON.stringify(snapshot2.val(), null, 4) : "No data found.";
+      });
+      sessionStorage.setItem("dl", "/db/url")
+  }function refresh2() {firebase.database().ref("/db/copy").on("value", function (snapshot2) {
+        var resultArea = document.getElementById("resultArea");
+        resultArea.innerText = snapshot2.val() ? JSON.stringify(snapshot2.val(), null, 4) : "No data found.";
+      });
+      sessionStorage.setItem("dl", "/db/copy")
+  }
+
+  // Write data to the database
+  function writeData() {
+    var key = sessionStorage.getItem("dl");
+    var value = prompt("Enter the data:");
+
+    if (key && value) {
+      firebase.database().ref(key).set(value);
+    }
+  }
+
+  // Delete data from the database
+  function deleteData() {
+    var key = sessionStorage.getItem("dl");
+
+    if (confirm("Are you sure you want to delete this data?")) {
+      firebase.database().ref(key).remove();
+    }
+  }
+</script>
+
+
+</body>
+</html>
