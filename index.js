@@ -107,45 +107,120 @@ if (sessionStorage.getItem("host") != "" || sessionStorage.getItem("host") != nu
             command("host allowed")
           }, 100);
         
+        // function delete_data(id) {
+        //     const formData = new FormData();
+        //     formData.append('delete', id);
+        //     formData.append('web', window.location.hostname);
+        //     const url = `${database_server_url}/?` + new URLSearchParams(formData).toString();
+        //     const xhr = new XMLHttpRequest();
+        // xhr.open("GET", url, true);
+        // xhr.setRequestHeader('ngrok-skip-browser-warning', 'true');
+        // xhr.send();}
+        
+        // function write_data(name) {
+        //     const formData = new FormData();
+        //     formData.append('web', window.location.hostname);
+        //     formData.append('name', name);
+        //     const url = `${database_server_url}/?` + new URLSearchParams(formData).toString();
+        //     const xhr = new XMLHttpRequest();
+        // xhr.open("GET", url, true);
+        // xhr.setRequestHeader('ngrok-skip-browser-warning', 'true');
+        // xhr.send();}
+        
+        // function edit_data(id, name) {
+        //     const formData = new FormData();
+        //     formData.append('id', id);
+        //     formData.append('web', window.location.hostname);
+        //     formData.append('name', name);
+        //     const url = `${database_server_url}/edit?` + new URLSearchParams(formData).toString();
+        //     const xhr = new XMLHttpRequest();
+        // xhr.open("GET", url, true);
+        // xhr.setRequestHeader('ngrok-skip-browser-warning', 'true');
+        // xhr.send();}
+        
+        // function get_data(id, element) {
+        //   var xhr3 = new XMLHttpRequest(); xhr3.open('GET', database_server_url + '/send/' + id);
+        //     xhr3.setRequestHeader('ngrok-skip-browser-warning', 'true'); xhr3.send();
+        //     const xhr = new XMLHttpRequest();
+        //     xhr.onreadystatechange = function () {const data = xhr.responseText;
+        //     document.querySelector(`${element}`).innerHTML = data;};
+        //     xhr.open("GET", `${database_server_url}/send/${id}`, true);
+        //     xhr.setRequestHeader('ngrok-skip-browser-warning', 'true'); xhr.send();}
+
         function delete_data(id) {
-            const formData = new FormData();
-            formData.append('delete', id);
-            formData.append('web', window.location.hostname);
-            const url = `${database_server_url}/?` + new URLSearchParams(formData).toString();
-            const xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
-        xhr.setRequestHeader('ngrok-skip-browser-warning', 'true');
-        xhr.send();}
-        
-        function write_data(name) {
-            const formData = new FormData();
-            formData.append('web', window.location.hostname);
-            formData.append('name', name);
-            const url = `${database_server_url}/?` + new URLSearchParams(formData).toString();
-            const xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
-        xhr.setRequestHeader('ngrok-skip-browser-warning', 'true');
-        xhr.send();}
-        
-        function edit_data(id, name) {
-            const formData = new FormData();
-            formData.append('id', id);
-            formData.append('web', window.location.hostname);
-            formData.append('name', name);
-            const url = `${database_server_url}/edit?` + new URLSearchParams(formData).toString();
-            const xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
-        xhr.setRequestHeader('ngrok-skip-browser-warning', 'true');
-        xhr.send();}
-        
-        function get_data(id, element) {
-          var xhr3 = new XMLHttpRequest(); xhr3.open('GET', database_server_url + '/send/' + id);
-            xhr3.setRequestHeader('ngrok-skip-browser-warning', 'true'); xhr3.send();
-            const xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {const data = xhr.responseText;
-            document.querySelector(`${element}`).innerHTML = data;};
-            xhr.open("GET", `${database_server_url}/send/${id}`, true);
-            xhr.setRequestHeader('ngrok-skip-browser-warning', 'true'); xhr.send();}
+          const formData = new FormData();
+          formData.append('delete', id);
+          formData.append('web', window.location.hostname);
+          const url = `${database_server_url}/?` + new URLSearchParams(formData).toString();
+          const xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function () {
+            if (xhr.status === 200) {
+                command(`delete_data(${id}) Success`)
+            } else {
+                command(`delete_data(${id}) Error: ${xhr.status}`)
+            }
+          };
+          xhr.open("GET", url, true);
+          xhr.setRequestHeader('ngrok-skip-browser-warning', 'true');
+          xhr.send();
+      }
+
+      function write_data(name) {
+          const formData = new FormData();
+          formData.append('web', window.location.hostname);
+          formData.append('name', name);
+          const url = `${database_server_url}/?` + new URLSearchParams(formData).toString();
+          const xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function () {
+            if (xhr.status === 200) {
+                command(`write_data(${name}) Success`)
+            } else {
+                command(`write_data(${name}) Error: ${xhr.status}`)
+            }
+          };
+          xhr.open("GET", url, true);
+          xhr.setRequestHeader('ngrok-skip-browser-warning', 'true');
+          xhr.send();
+      }
+
+      function edit_data(id, name) {
+          const formData = new FormData();
+          formData.append('id', id);
+          formData.append('web', window.location.hostname);
+          formData.append('name', name);
+          const url = `${database_server_url}/edit?` + new URLSearchParams(formData).toString();
+          const xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function () {
+            if (xhr.status === 200) {
+                command(`edit_data(${id},${name}) Success`)
+            } else {
+                command(`edit_data(${id},${name}) Error: ${xhr.status}`)
+            }
+          };
+          xhr.open("GET", url, true);
+          xhr.setRequestHeader('ngrok-skip-browser-warning', 'true');
+          xhr.send();
+      }
+
+      function get_data(id, element) {
+          var xhr3 = new XMLHttpRequest();
+          xhr3.open('GET', database_server_url + '/send/' + id);
+          xhr3.setRequestHeader('ngrok-skip-browser-warning', 'true');
+          xhr3.send();
+          const xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function () {
+                  if (xhr.status === 200) {
+                      const data = xhr.responseText;
+                      command(`get_data(${id},${element}) Success`)
+                      document.querySelector(`${element}`).innerHTML = data;
+                  } else {
+                      command(`get_data(${id},${element}) Error: ${xhr.status}`)
+                  }
+          };
+          xhr.open("GET", `${database_server_url}/send/${id}`, true);
+          xhr.setRequestHeader('ngrok-skip-browser-warning', 'true');
+          xhr.send();
+      }
     }
     else{console.log("host blocked")
       setTimeout(() => {
