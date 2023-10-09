@@ -22,18 +22,65 @@ const firebaseConfig = {
         }, 1000);
 
 
-function command(message) {setTimeout(() => {
-const element = document.querySelector(".log"), speed = 50; 
-let i = 0;const typeWriter = () => {if (i < message.length) {element.innerHTML += message.charAt(i);i++;
-setTimeout(typeWriter, speed);}};setTimeout(() => {element.innerHTML = "> ";typeWriter();
-}, 1000);
-}, 1000);}document.querySelector(".log").innerHTML = ">";var log_style = document.createElement("style");
+      //   function command(message) {
+      //     setTimeout(() => {
+      //         const element = document.querySelector(".log");
+      //         const speed = 20;
+      //         let i = 0;
+      
+      //         const typeWriter = () => {
+      //             if (i < message.length) {
+      //                 element.innerHTML += message.charAt(i);
+      //                 i++;
+      //                 setTimeout(typeWriter, speed);
+      //             }
+      //         };
+      
+      //         setTimeout(() => {
+      //             element.innerHTML = "> ";
+      //             typeWriter();
+      //         }, 500);
+      //     }, 1000);
+      //     setTimeout(() => {
+      //       document.querySelector(".log").innerHTML = ">"
+      //     }, 4500);
+      // }
+      function command(message) {
+        const element = document.querySelector(".log");
+        const speed = 10; 
+        let i = 0;
+        const typeWriter = () => {
+        if (i < message.length) {
+        element.innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+        }else {
+          setTimeout(deleteText, 2000);
+        }
+        };
+      
+        let j = message.length;
+        const deleteText = () => {
+          if (j >= 0) {
+            element.innerHTML = element.innerHTML.slice(0, -1);
+            j--;
+            setTimeout(deleteText, speed);
+          }
+        };
+      
+        setTimeout(() => {
+          element.innerHTML = "> ";
+          typeWriter();
+        }, 100);
+      }
+      
+document.querySelector(".log").innerHTML = ">";var log_style = document.createElement("style");
 log_style.innerHTML = `@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
 .log{
     background-color: black;
     color: white;
     font-family: Silkscreen;
-    font-size: 10px;
+    font-size: 15px;
     padding: 2px 8px;
     border-radius: 4px;
     position: absolute;
@@ -45,7 +92,16 @@ log_style.innerHTML = `@import url('https://fonts.googleapis.com/css2?family=Sil
     font-family: Silkscreen;
     padding: 2px 8px;
     border-radius: 4px;
-}`;document.body.appendChild(log_style); function command_noT(message) {document.querySelector(".log").innerHTML = "> "+ message;
+}.logcheck{
+  color: green;
+  font-family: Silkscreen;
+  font-size: 15px;
+}.logerror{
+  color:red;
+  font-family: Silkscreen;
+  font-size: 15px;
+}
+`;document.body.appendChild(log_style); function command_noT(message) {document.querySelector(".log").innerHTML = "> "+ message;
 }
 
         const database_server_url = sessionStorage.getItem("dburl");
@@ -61,7 +117,7 @@ log_style.innerHTML = `@import url('https://fonts.googleapis.com/css2?family=Sil
             command_noT("Loading")
             setTimeout(() => {
             window.location.reload();
-            }, 1500);
+            }, 2500);
         }
         else if(sessionStorage.getItem("rel") == "2"){
             sessionStorage.setItem("rel", "3")
@@ -103,10 +159,7 @@ const host = {hostnames: sessionStorage.getItem("host")};
 if (sessionStorage.getItem("host") != "" || sessionStorage.getItem("host") != null){
     if (host.hostnames.includes(window.location.hostname)) {
         console.log("host allowed");
-        
-          setTimeout(() => {
             command("host allowed")
-          }, 100);
         
         // function delete_data(id) {
         //     const formData = new FormData();
@@ -155,10 +208,8 @@ if (sessionStorage.getItem("host") != "" || sessionStorage.getItem("host") != nu
           const url = `${database_server_url}/?` + new URLSearchParams(formData).toString();
           const xhr = new XMLHttpRequest();
           xhr.onreadystatechange = function () {
-            if (xhr.status === 200) {
-                command(`delete_data(${id}) Success`)
-            } else {
-                command(`delete_data(${id}) Error: ${xhr.status}`)
+            if(xhr.readyState === 4){
+                command(`delete_data(${id}) ${xhr.status}`)
             }
           };
           xhr.open("GET", url, true);
@@ -173,11 +224,9 @@ if (sessionStorage.getItem("host") != "" || sessionStorage.getItem("host") != nu
           const url = `${database_server_url}/?` + new URLSearchParams(formData).toString();
           const xhr = new XMLHttpRequest();
           xhr.onreadystatechange = function () {
-            if (xhr.status === 200) {
-                command(`write_data(${name}) Success`)
-            } else {
-                command(`write_data(${name}) Error: ${xhr.status}`)
-            }
+          if(xhr.readyState === 4){
+                  command(`write_data(${name}) ${xhr.status}`)
+          }
           };
           xhr.open("GET", url, true);
           xhr.setRequestHeader('ngrok-skip-browser-warning', 'true');
@@ -192,10 +241,8 @@ if (sessionStorage.getItem("host") != "" || sessionStorage.getItem("host") != nu
           const url = `${database_server_url}/edit?` + new URLSearchParams(formData).toString();
           const xhr = new XMLHttpRequest();
           xhr.onreadystatechange = function () {
-            if (xhr.status === 200) {
-                command(`edit_data(${id},${name}) Success`)
-            } else {
-                command(`edit_data(${id},${name}) Error: ${xhr.status}`)
+            if(xhr.readyState === 4){
+                  command(`edit_data(${id}, ${name}) <font class="logerror">${xhr.status}</font>`)
             }
           };
           xhr.open("GET", url, true);
@@ -204,19 +251,12 @@ if (sessionStorage.getItem("host") != "" || sessionStorage.getItem("host") != nu
       }
 
       function get_data(id, element) {
-          var xhr3 = new XMLHttpRequest();
-          xhr3.open('GET', database_server_url + '/send/' + id);
-          xhr3.setRequestHeader('ngrok-skip-browser-warning', 'true');
-          xhr3.send();
           const xhr = new XMLHttpRequest();
           xhr.onreadystatechange = function () {
-                  if (xhr.status === 200) {
-                      const data = xhr.responseText;
-                      command(`get_data(${id},${element}) Success`)
-                      document.querySelector(`${element}`).innerHTML = data;
-                  } else {
-                      command(`get_data(${id},${element}) Error: ${xhr.status}`)
-                  }
+            if(xhr.readyState === 4){
+              document.querySelector(`${element}`).innerHTML = xhr.responseText;
+              command(`get_data(${id}, ${element}) ${xhr.status}`)
+            }
           };
           xhr.open("GET", `${database_server_url}/send/${id}`, true);
           xhr.setRequestHeader('ngrok-skip-browser-warning', 'true');
