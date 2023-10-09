@@ -55,7 +55,7 @@ const firebaseConfig = {
         i++;
         setTimeout(typeWriter, speed);
         }else {
-          setTimeout(deleteText, 2000);
+          setTimeout(deleteText, 3100);
         }
         };
       
