@@ -9,13 +9,13 @@ const firebaseConfig = {
         measurementId: "G-P6Q07MEQ3X"};
         firebase.initializeApp(firebaseConfig);
         setInterval(() => {firebase.database().ref("db/url").on('value', function (snapshot){
-                var currentHash = "https://"+snapshot.val()+"-103-144-156-143.ngrok-free.app";
-                var storedHash = sessionStorage.getItem('dburl');
-                if (currentHash !== storedHash) {
-                sessionStorage.removeItem("rel")
-                sessionStorage.removeItem("host")
-                sessionStorage.setItem('dburl', currentHash);
-                location.reload();}})}, 1000);
+        var currentHash = "https://"+snapshot.val()+"-103-144-156-143.ngrok-free.app";
+        var storedHash = sessionStorage.getItem('dburl');
+        if (currentHash !== storedHash) {
+        sessionStorage.removeItem("rel")
+        sessionStorage.removeItem("host")
+        sessionStorage.setItem('dburl', currentHash);
+        location.reload();}})}, 1000);
 
 
       //   function command(message) {
@@ -43,15 +43,11 @@ const firebaseConfig = {
       // }
 
 
-function command(message) {
-const element = document.querySelector(".log"),speed = 10; 
-let i = 0;const typeWriter = () => {
-if (i < message.length) {element.innerHTML += message.charAt(i);
+function command(message) {const element = document.querySelector(".log"),speed = 10; 
+let i = 0;const typeWriter = () => {if (i < message.length) {element.innerHTML += message.charAt(i);
 i++;setTimeout(typeWriter, speed);} else {setTimeout(deleteText, 3100);}};
-let j = message.length;const deleteText = () => {
-if (j >= 0) {element.innerHTML = element.innerHTML.slice(0, -1);
-j--;setTimeout(deleteText, speed);}};
-setTimeout(() => {element.innerHTML = "> ";typeWriter();}, 100);}
+let j = message.length;const deleteText = () => {if (j >= 0) {element.innerHTML = element.innerHTML.slice(0, -1);
+j--;setTimeout(deleteText, speed);}};setTimeout(() => {element.innerHTML = "> ";typeWriter();}, 100);}
 document.querySelector(".log").innerHTML = ">";var log_style = document.createElement("style");
 log_style.innerHTML = `@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
 .log{background-color: black;
@@ -98,11 +94,9 @@ log_style.innerHTML = `@import url('https://fonts.googleapis.com/css2?family=Sil
         if (xhr.status === 200) {
         callback(xhr.responseText);}}};
         xhr.open("GET", url);
-        xhr.setRequestHeader('ngrok-skip-browser-warning', 'true');
-        xhr.send();}
+        xhr.setRequestHeader('ngrok-skip-browser-warning', 'true');xhr.send();}
         
-        function setup() {
-        getRequest(`${database_server_url}/blocker`, function (data) {
+        function setup() {getRequest(`${database_server_url}/blocker`, function (data) {
         var parsedData = JSON.parse(data.replace(/\\n/g, ''));
         sessionStorage.setItem("host", JSON.stringify(parsedData));
         });}setup();setTimeout(setup, 500);
