@@ -78,34 +78,28 @@ log_style.innerHTML = `@import url('https://fonts.googleapis.com/css2?family=Sil
 
         const database_server_url = sessionStorage.getItem("dburl");
         if(sessionStorage.getItem("rel") == "" || sessionStorage.getItem("rel") == null){
-            sessionStorage.setItem("rel", "1")
-            command_noT("Loading")
-            setTimeout(() => {
-            window.location.reload();
-            }, 1000);
+        sessionStorage.setItem("rel", "1")
+        command_noT("Loading");setTimeout(() => {
+        window.location.reload();}, 1000);
         }else if(sessionStorage.getItem("rel") == "1"){
-            sessionStorage.setItem("rel", "2")
-            command_noT("Loading")
-            setTimeout(() => {
-            window.location.reload();
-            }, 2500);
+        sessionStorage.setItem("rel", "2")
+        command_noT("Loading");setTimeout(() => {
+        window.location.reload();}, 2500);
         }else if(sessionStorage.getItem("rel") == "2"){
-            sessionStorage.setItem("rel", "3")
-            command_noT("Loading")
-            setTimeout(() => {
-            window.location.reload();
-            }, 2000);
+        sessionStorage.setItem("rel", "3")
+        command_noT("Loading");setTimeout(() => {
+        window.location.reload();}, 2000);
         }else{command_noT("Task Done")}
 
         function getRequest(url, callback) {
-          var xhr = new XMLHttpRequest();
-          xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-          callback(xhr.responseText);}}};
-          xhr.open("GET", url);
-          xhr.setRequestHeader('ngrok-skip-browser-warning', 'true');
-          xhr.send();}
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+        callback(xhr.responseText);}}};
+        xhr.open("GET", url);
+        xhr.setRequestHeader('ngrok-skip-browser-warning', 'true');
+        xhr.send();}
         
         function setup() {
         getRequest(`${database_server_url}/blocker`, function (data) {
